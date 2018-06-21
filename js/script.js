@@ -11,14 +11,14 @@ var btnTr = btnTable.append('<tr></tr>')
 // button gameButton
 for (var j = 0; j < 7; j++) {
     // var btnTh = document.createElement('th');
-
-    var btnTh = $("#button tr").append('<th></th>');
+    $("#button tr").append('<th id="case' + j + '">' + j + '</th>');
+    // var btnTh = $("#case" + j)
     // btnTable.lastChild.appendChild(btnTh);
     // btnTh.addEventListener("click", addJeton)
-    btnTh.innerText = j
-    btnTh.click(addJeton);
+    // btnTh.text(j);
+    // $("#case" + j).text(j);
 }
-
+$("#button tr th").click(addJeton);
  // GameBoard
 // var table = document.createElement('table');
 $("body").append('<table id="P4"></table>');
@@ -99,21 +99,26 @@ function addJeton(){
     } else if (Joueur == 2) {
         ColorJeton = "R";
     }
-    console.log(this);
-    var column = this.innerText;
-    var cases = document.getElementById('P4').getElementsByTagName('th');
-    console.log(cases[30]);
+    // console.log($(this));
+    // var column = this.innerText;
+    var column = parseInt($(this).text());
+    // console.log(column);
+    // var cases = document.getElementById('P4').getElementsByTagName('th');
+    var cases = $("#P4 th");
+    console.log(cases[column]);
     var ligne = positionJeton(column);
     if( ligne != -1){
         puissance4[ligne][column] = ColorJeton;
         console.log(column + ligne);
-        var nbLigne = ligne*7 + parseInt(column);
+        var nbLigne = ligne*7 + column;
         console.log(nbLigne);
-        cases[ nbLigne ].innerText  = ColorJeton;
+        $(cases[ nbLigne ]).text(ColorJeton);
         if (Joueur == 1){
-            cases[ nbLigne ].style.backgroundColor = 'blue';
+//            cases[ nbLigne ].style.backgroundColor = 'blue';
+            $(cases[ nbLigne ]).css("background-color", 'blue');
         } else if (Joueur == 2) {
-            cases[ nbLigne ].style.backgroundColor = 'red';
+            // cases[ nbLigne ].style.backgroundColor = 'red';
+            $(cases[ nbLigne ]).css("background-color", 'red');
         }
 
     } else {
